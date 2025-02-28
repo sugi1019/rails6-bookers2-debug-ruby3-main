@@ -30,4 +30,18 @@ class User < ApplicationRecord
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
+
+
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
+  end
+  
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id)&.destroy
+  end
+  
+  def following?(other_user)
+    active_relationships.exists?(followed_id: other_user.id)
+  end
+  
 end
