@@ -1,1 +1,24 @@
-<h2>フォローしてるユーザー</h2>
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <table class='table'>
+      <tr>Follower Users</tr>
+
+      <tr>
+        <th>image</th>
+        <th>name</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+
+      <tr>
+        <td><%= image_tag @user.get_profile_image, size: '50x50' %></td>
+        <th><%= @user.name %></th>
+        <th>フォロー数: <%= @user.following.count %></th>
+        <th>フォロワー数: <%= @user.followers.count %></th>
+        <th><%= link_to "Show", user_path(@user) %> </th>
+      </tr>
+
+    </table>
+  </div>
+</div>
