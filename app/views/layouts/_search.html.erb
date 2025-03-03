@@ -1,0 +1,23 @@
+
+<div class="serch_form, text-center">
+    <%= form_with url: search_path, method: :get, local: true do |f| %>
+      <!-- content=検索したいワード -->
+      <%= f.text_field :word %>
+
+      <!-- f.selectセレクトボックスの作成 User外面上の表記 userは送信される値 --!>
+      <%= f.select :model, options_for_select([
+        ["User", "user"],
+        ["Book", "book"]
+      ]) %>
+
+      <!-- 画面に表示される値, 送信される値 -->
+      <%= f.select :method, options_for_select([
+        ["完全一致", "perfect"],
+        ["前方一致", "forward"],
+        ["後方一致", "backward"],
+        ["部分一致", "partial"]
+      ]) %>
+
+      <%= f.submit'検索' %>
+    <% end %>
+</div>

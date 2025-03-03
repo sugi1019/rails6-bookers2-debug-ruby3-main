@@ -44,4 +44,16 @@ class User < ApplicationRecord
     active_relationships.exists?(followed_id: other_user.id)
   end
   
+  def self.search_for(word, method)
+    if method == 'perfect'
+      User.where(name: word)
+    elsif method == 'forward'
+      User.where('name LIKE ?', "#{word}%")
+    elsif method == 'backward'
+      User.where('name LIKE ?', "%#{word}")
+    else
+      User.where('name LIKE ?', "%#{word}%")
+    end
+  end
+
 end
