@@ -12,7 +12,7 @@
   		<table class='table'>
   		  <tr>
           <td><%= link_to(@book.user) do %>
-            <%= image_tag @book.user.get_profile_image, size:"100x100" %><br>
+            <%= image_tag @book.user.get_profile_image, size:"50x50" %><br>
             <%= @book.user.name %>
             <% end %>
             </td>
@@ -24,38 +24,28 @@
               <%= render "favorites/btn", book: @book %>
             </td>
   
-            <!-- #コメント数カウント -->
-            <td>コメント数: <%= @comment_count %></td>
+            <!-- #コメントカウント  -->
+            <td id="comment_counter">
+              <%= render "book_comments/counter", book: @book %>
+            </td>
+
+            <!-- #エディットデリートボタン -->
             <% if @book.user == current_user %>
               <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
               <td><%= link_to 'Destroy', book_path(@book), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
             <% end %>
+
+
         </tr>
       </table>
 
       <!-- #コメント一覧 -->
-      <table>
-        <tbody>
-          <% @book.book_comments.each do |comment| %>
-            <tr>
-              <td><%= link_to user_path(comment.user_id) do %>
-                <%= image_tag comment.user.get_profile_image, size:"100x100" %><br>
-                <%= comment.user.name %>
-              <% end %></td>
-              <td><%= comment.comment %></td>
-              <!-- #コメントの削除ボタン -->
-              <% if comment.user == current_user %>
-                <td><%= link_to "Destroy", book_book_comment_path(comment.id), method: :delete, class: "btn btn-sm btn-danger" %></td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <!-- #コメント入力欄 -->
-      <%= form_with model: [@book, @book_comment] do |f| %>
-        <%= f.text_area :comment, class: "w-100", rows: '5' %>
-        <%= f.submit "送信" %>
-      <% end %>
+      <div id="comment_index">
+        <%= render "book_comments/index", book: @book %>
+      </div>
+
+      <!-- #コメント入力欄 -->
+      <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
     </div>
   </div>
 </div>

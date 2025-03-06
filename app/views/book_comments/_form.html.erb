@@ -1,0 +1,5 @@
+<!-- #コメント入力欄 -->
+<%= form_with model: [book, book_comment], local: false do |f| %>
+  <%= f.text_area :comment, class: "w-100", rows: '5', id: "comment_textarea" %>
+  <%= f.submit "送信" %>
+<% end %>
