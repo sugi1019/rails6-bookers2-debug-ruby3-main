@@ -18,16 +18,12 @@
             </td>
             <td><%= link_to @book.title, @book %></td>
             <td><%= @book.body %></td>
-            <!-- #いいね欄 -->
-            <% if @book.favorited_by?(current_user) %>
-              <td><%= link_to book_favorite_path(@book), method: :delete, style: "color: red;" do %>
-                ♥<%= @book.favorites.count %> 
-              <% end %></td>
-            <% else %>
-              <td><%= link_to book_favorite_path(@book), method: :post do %>
-                ♥<%= @book.favorites.count %> 
-              <% end %></td>
-            <% end %>  
+
+            <!--#いいね機能-->
+            <td id="favorite_btn_<%= @book.id %>">
+              <%= render "favorites/btn", book: @book %>
+            </td>
+  
             <!-- #コメント数カウント -->
             <td>コメント数: <%= @comment_count %></td>
             <% if @book.user == current_user %>

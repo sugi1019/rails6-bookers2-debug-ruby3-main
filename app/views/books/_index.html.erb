@@ -15,19 +15,21 @@
         <% end %></td>
         <td><%= link_to book.title,book %></td>
         <td><%= book.body %></td>
-        <!-- #いいね機能 -->
-        <% if book.favorited_by?(current_user) %>
-          <td><%= link_to book_favorite_path(book), method: :delete, style: "color: red;" do %>
-            ♥<%= book.favorites.count %> 
-          <% end %></td>
-        <% else %>
-          <td><%= link_to book_favorite_path(book), method: :post do %>
-            ♥<%= book.favorites.count %> 
-          <% end %></td>
-        <% end %>
+
+        <!-- #いいね機能  jsのためにidタグをつける  tableの中なのでtd id  どの本なのかを指定するためbook.id -->
+        <td id="favorite_btn_<%= book.id %>">
+          <!-- #renderで部分テンプレート呼び出し each文の変数がbookなのでbook:@bookではなくbook:book -->
+          <%= render "favorites/btn", book: book %>
+        </td>
+
+
+
         <!-- #コメントカウント -->
         <td>コメント数: <%= book.book_comments.count %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+
+
